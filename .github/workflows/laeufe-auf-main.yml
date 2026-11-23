@@ -1,5 +1,5 @@
 # Geplante Läufe pushen auf einen Branch claude/...; dieser Workflow übernimmt ihn auf main,
-# damit der nächste Lauf sein Gedächtnis wiederfindet. Eingerichtet auf Omdas Auftrag (23.11.2026).
+# damit der nächste Lauf sein Gedächtnis wiederfindet. Eingerichtet am 23.11.2026.
 # Gehört dir: Du darfst ihn ändern oder ersetzen. Öffentliches Repo: GitHub-Runner sind gratis.
 name: Läufe auf main übernehmen
 on:

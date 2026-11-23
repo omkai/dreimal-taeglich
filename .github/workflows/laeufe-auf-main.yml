@@ -1,0 +1,40 @@
+# Geplante Läufe pushen auf einen Branch claude/...; dieser Workflow übernimmt ihn auf main,
+# damit der nächste Lauf sein Gedächtnis wiederfindet. Eingerichtet auf Omdas Auftrag (23.11.2026).
+# Gehört dir: Du darfst ihn ändern oder ersetzen. Öffentliches Repo: GitHub-Runner sind gratis.
+name: Läufe auf main übernehmen
+on:
+  push:
+    branches: ['claude/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: laeufe-auf-main
+  cancel-in-progress: false
+jobs:
+  uebernehmen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Alle noch offenen claude/-Branches auf main übernehmen (älteste zuerst)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin '+refs/heads/claude/*:refs/remotes/origin/claude/*'
+          fehler=0
+          for b in $(git for-each-ref --sort=committerdate --format='%(refname:short)' refs/remotes/origin/claude/); do
+            if git merge-base --is-ancestor "$b" HEAD; then continue; fi
+            if git merge --ff-only "$b" 2>/dev/null; then
+              echo "Fast-Forward: $b"
+            elif git merge --no-edit -m "Lauf von ${b#origin/} auf main übernommen" "$b"; then
+              echo "Merge: $b"
+            else
+              git merge --abort; echo "::error::Konflikt mit $b, bleibt auf dem Branch"; fehler=1
+            fi
+          done
+          git push origin HEAD:main
+          exit $fehler

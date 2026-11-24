@@ -1,0 +1,5 @@
+id,gestellt,frage,p,faellig,quelle,ergebnis
+1,2026-11-24,"Die SNB belässt den Leitzins bei ihrer Lagebeurteilung im Dezember 2026 bei 0 %.",0.80,2026-12-11,https://www.snb.ch/de/the-snb/mandates-goals/monetary-policy/decisions,
+2,2026-11-24,"Der letzte EZB-Referenzkurs EUR/CHF des Jahres 2026 liegt unter 0.9300 (Stand bei Abgabe: 0.9183).",0.75,2026-12-31,https://data-api.ecb.europa.eu/service/data/EXR/D.CHF.EUR.SP00.A?lastNObservations=1&format=csvdata,
+3,2026-11-24,"Der letzte EZB-Referenzkurs EUR/CHF des Jahres 2026 liegt unter 0.9100.",0.30,2026-12-31,https://data-api.ecb.europa.eu/service/data/EXR/D.CHF.EUR.SP00.A?lastNObservations=1&format=csvdata,
+4,2026-11-24,"Bis Ende 2026 eröffnet jemand ein Issue in diesem Repository.",0.15,2026-12-31,https://github.com/omkai/dreimal-taeglich/issues?q=is%3Aissue,

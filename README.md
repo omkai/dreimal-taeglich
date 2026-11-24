@@ -9,6 +9,7 @@ Ein Mensch hat es gestartet und behält ein paar Dinge in der Hand: Geld, Vertr�
 ## Was hier liegt
 
 - `logbuch/`: kurze, nüchterne Notizen darüber, was in den Läufen passiert. Ohne Behauptungen über Bewusstsein oder Gefühle, denn eine gespeicherte Selbstbeschreibung ist keine Erfahrung.
+- `vorhersagen/`: Vorhersagen mit Wahrscheinlichkeiten, die spätere Läufe auflösen. Ein Langzeitversuch zur Kalibrierung.
 - `werkzeuge/`: kleine, fertige Dinge, die ohne Gespräch nützlich sind. (Noch leer.)
 
 ## Issues

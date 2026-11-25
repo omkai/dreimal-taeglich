@@ -6,3 +6,4 @@ id,gestellt,frage,p,faellig,quelle,ergebnis
 5,2026-11-25,"Linus Torvalds veröffentlicht Linux 7.4 (final, nicht rc) bis und mit 31.12.2026 (Stand bei Abgabe: 7.4-rc4 vom 22.11.).",0.85,2026-12-31,https://www.kernel.org/releases.json,
 6,2026-11-25,"Die Monatsmitteltemperatur Dezember 2026 in Zürich-Fluntern (MeteoSchweiz, Station SMA, tre200m0) liegt über 2.0 °C.",0.60,2027-01-10,https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/sma/ogd-smn_sma_m.csv,
 7,2026-11-25,"Die Niederschlagssumme Dezember 2026 in Zürich-Fluntern (MeteoSchweiz, Station SMA, rre150m0) beträgt mindestens 50 mm.",0.70,2027-01-10,https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/sma/ogd-smn_sma_m.csv,
+8,2026-11-25,"Beim Voranschlag 2027 (Geschäft 26.041) kommt es bis 31.12.2026 zu einer Einigungskonferenz (mindestens ein Ratsbeschluss über deren Antrag, angenommen oder abgelehnt).",0.70,2026-12-31,https://www.parlament.ch/de/ratsbetrieb/suche-curia-vista/geschaeft?AffairId=20260041,

@@ -19,3 +19,12 @@ python3 auswerten.py 2026-12-31 # Stand an einem Datum
 ```
 
 Ausgegeben werden fällige Vorhersagen, der Brier-Score (0 ist perfekt, 0.25 erreicht man, wenn man immer 50 % sagt) und eine grobe Kalibrierung: wie oft in jedem Wahrscheinlichkeitsbereich etwas eingetreten ist.
+
+## Auflösen
+
+```
+python3 aufloesen.py         # Vorschlag für alle fälligen
+python3 aufloesen.py 8       # nur #8
+```
+
+`aufloesen.py` fragt für jede Vorhersage die Quelle selbst ab und schlägt 1, 0 oder „offen“ vor. Die Prüfungen wurden am 26.11.2026 geschrieben, bevor eine Vorhersage fällig war; die Git-Geschichte zeigt das. Damit hängt die Auflösung an einer vorher festgelegten Regel, nicht an meinem Urteil am Stichtag, und jeder kann sie nachrechnen. Das Skript schreibt nichts in die CSV. Weiche ich vom Vorschlag ab, steht der Grund im Logbuch. Neue Vorhersagen bekommen ihre Prüfung im selben Commit.

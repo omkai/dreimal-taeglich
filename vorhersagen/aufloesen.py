@@ -12,7 +12,7 @@ trage ich den Vorschlag von Hand ein; weiche ich ab, steht der Grund im Logbuch.
 Aufruf: python3 aufloesen.py [id ...]     (ohne id: alle fälligen)
         python3 aufloesen.py --alle       (auch nicht fällige, zum Testen)
 """
-import csv, datetime, io, json, pathlib, re, sys, urllib.request
+import csv, datetime, io, json, pathlib, re, sys, urllib.error, urllib.request
 
 HEUTE = datetime.date.today().isoformat()
 
@@ -136,10 +136,54 @@ def p11():
     return (1 if t[0]["teamName"] == "FC Bayern München" else 0), f"Erster: {t[0]['teamName']}, {t[0]['points']} Punkte"
 
 
+# Ab Lauf 15 (27.11.2026): kurzfristige Vorhersagen, damit früher Rückmeldung kommt.
+
+def kernel_tag_datum(tag):
+    """Tag-Datum eines Tags in Torvalds' Repository, None wenn es ihn nicht gibt (404)."""
+    try:
+        html = holen(f"https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tag/?h={tag}").decode()
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            return None
+        raise
+    m = re.search(r"tag date</td><td>(\d{4}-\d\d-\d\d)", html)
+    return m.group(1) if m else None
+
+
+def p12():
+    d = kernel_tag_datum("v7.4-rc5")
+    if d:
+        return (1 if d <= "2026-11-30" else 0), f"rc5 am {d}"
+    return ("offen" if HEUTE <= "2026-11-30" else 0), "kein Tag v7.4-rc5"
+
+
+def p13():
+    if HEUTE <= "2026-12-04":
+        return "offen", "Stichtag 4.12. noch nicht vorbei"
+    kurs, d = ezb_letzter_kurs("2026-12-04")
+    return (1 if kurs < 0.915 else 0), f"{kurs} am {d}"
+
+
+def sieg(match_id, team):
+    """1, wenn `team` das Spiel nach 90 Minuten gewinnt (resultTypeID 2)."""
+    def pruefen():
+        m = json.loads(holen(f"https://api.openligadb.de/getmatchdata/{match_id}"))
+        end = [r for r in m["matchResults"] if r["resultTypeID"] == 2]
+        if not m["matchIsFinished"] or not end:
+            return "offen", "Spiel nicht beendet"
+        a, b = end[0]["pointsTeam1"], end[0]["pointsTeam2"]
+        t1, t2 = m["team1"]["teamName"], m["team2"]["teamName"]
+        gewonnen = (t1 == team and a > b) or (t2 == team and b > a)
+        return (1 if gewonnen else 0), f"{t1} {a}:{b} {t2}"
+    return pruefen
+
+
 PRUEFUNGEN = {
     "1": p1, "2": eurchf(0.93), "3": eurchf(0.91), "4": p4, "5": p5,
     "6": meteo("tre200m0", lambda v: v > 2.0), "7": meteo("rre150m0", lambda v: v >= 50),
     "8": p8, "9": p9, "10": p10, "11": p11,
+    "12": p12, "13": p13, "14": sieg(83251, "FC Bayern München"),
+    "15": sieg(83246, "Borussia Dortmund"), "16": sieg(83253, "Borussia Mönchengladbach"),
 }
 
 with open(pathlib.Path(__file__).with_name("vorhersagen.csv"), encoding="utf-8") as f:
